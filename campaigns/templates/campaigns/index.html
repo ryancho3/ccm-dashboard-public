@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% include "./common/common.html" %}
+    <title>Home</title>
+  </head>
+  <body>
+    {% include "./common/header.html" %}
+    <div class="container-lg p-3">
+      <h2>Campaigns</h2>
+    </div>
+      
+      {% if latest_campaign_list %}
+        <ul>
+        {% for campaign in latest_campaign_list %}
+        <div class="container-lg p-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ campaign.name }}</h5>
+            <p class="card-text"><ul>
+              <li>Code: {{ campaign.code }}</li>
+              <li>Start Date: {{ campaign.start_date }}</li>
+              <li>End Date: {{ campaign.end_date }}</li>
+            </ul></p>
+            <a href="{% url 'campaigns:campaign_detail' campaign.code %}" class="btn btn-primary">Details</a>
+          </div>
+        </div>
+        </div>
+        {% endfor %}
+      </ul>
+  {% else %}
+      <p>No campaigns are available.</p>
+  {% endif %}
+
+    {% include "./common/footer.html" %}
+  </body>
+</html>

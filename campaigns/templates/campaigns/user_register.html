@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% include "./common/common.html" %}
+    <title>Register</title>
+</head>
+<body>
+    {% include "./common/header.html" %}
+    {% if error is not None %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="container-lg p-3">
+        <h2>Register New Account</h2>
+        <form action="/accounts/register" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" placeholder="Username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" placeholder="First Name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" placeholder="Last Name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="repeat_password">Password</label>
+                <input type="password" name="repeat_password" placeholder="Repeat Password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="school">School</label>
+                <select name="school" class="form-control">
+                    {% for school in school_list %}
+                    <option value="{{ school.code }}">{{ school.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" value="Create" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+    {% include "./common/footer.html" %}
+</body>

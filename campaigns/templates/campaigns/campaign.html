@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% include "./common/common.html" %}
+    <title>{{ campaign.name }}</title>
+  </head>
+  <body>
+    {% include "./common/header.html" %}
+    <div class="container-lg p-3">
+      <h1>{{ campaign.name }}</h1>
+      <h2>Number of Impressions: {{ total_impressions }}</h2>
+    </div>
+    <div class="container-lg p-3">
+      <h3>Recent Impressions</h3>
+    {% if recent_impressions %}
+      <ul class="list-group">
+      {% for impression in recent_impressions %}
+      <li class="list-group-item">{{ impression.datetime }}: {{ impression.school }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No impressions to show.</p>
+    {% endif %}
+  </div>
+  <div class="container-lg p-3">
+    <h2>School Specific</h2>
+  </div>
+  <div class="container-lg p-3">
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+      {% for school in school_impressions %}
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-heading{{ forloop.counter }}">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ forloop.counter }}">
+            {{ school.0 }}
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ forloop.counter }}">
+          <div class="accordion-body">
+            <ul>
+              <li><strong>Tracking Link: <a href="/{{ campaign.code }}/{{ school.1 }}">Link</a></strong></li>
+              <li>Number of Impressions: {{ school.2 }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+    {% include "./common/footer.html" %}
+  </body>
+</html>

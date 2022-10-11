@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% include "./common/common.html" %}
+    <title>{{ user.first_name }}</title>
+  </head>
+  <body>
+    {% include "./common/header.html" %}
+    <div class="container-lg p-3">
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        <ul class="list-group">
+            <li class="list-group-item">Username: {{ user.username }}</li>
+            <li class="list-group-item">Email: {{ user.email }}</li>
+        </ul>
+    </div>
+    <div class="container-lg p-3">
+        {% if not user.is_staff or not user.is_superuser %}
+        <h3>Schools</h3>
+        <ul class="list-group">
+            {% for school in school_list %}
+            <li class="list-group-item">{{ school.name }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% include "./common/footer.html" %}
+  </body>
+</html>
