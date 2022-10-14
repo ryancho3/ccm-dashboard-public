@@ -30,7 +30,8 @@ def campaign_detail(request, campaign_code):
     total_impressions = impressions.count()
     recent_impressions = impressions[0:10]
     school_impressions, school_recent_impressions = get_school_impressions(request.user, campaign)
-    return render(request, 'campaigns/campaign.html', {'campaign': campaign,
+    return render(request, 'campaigns/campaign.html', {'user': request.user, 
+                                                    'campaign': campaign,
                                                     'total_impressions': total_impressions,
                                                     'recent_impressions': recent_impressions,
                                                     'school_impressions': school_impressions,
@@ -70,7 +71,7 @@ def user_register(request):
             return render(request, 'campaigns/user_register_success.html')
         else:
             return render(request, 'campaigns/user_register.html', {'error': register_check(post),
-                                                            'school_list': school_list})
+                                                                    'school_list': school_list})
     
     return render(request, 'campaigns/user_register.html', {'school_list': school_list})
 
@@ -84,14 +85,16 @@ def user_login(request):
             login(request, user)
             return redirect('/')
         else:
-            return render(request, 'campaigns/user_login.html', {'error': 'Invalid username or password.'})
+            return render(request, 'campaigns/user_login.html', {'user': request.user,
+                                                                'error': 'Invalid username or password.'})
 
     return render(request, 'campaigns/user_login.html')
 
 @login_required
 def user_logout(request):
     logout(request)
-    return render(request, 'campaigns/user_login.html', {'error': 'Successfully Logged Out.'})
+    return render(request, 'campaigns/user_login.html', {'user': request.user, 
+                                                        'error': 'Successfully Logged Out.'})
 
 @login_required
 def user_profile(request):
