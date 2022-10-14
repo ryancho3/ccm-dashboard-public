@@ -15,7 +15,7 @@
     {% endif %}
     <div class="container-lg p-3">
         <h2>Login</h2>
-        <form action="/accounts/login" method="post">
+        <form action="/accounts/login/" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username</label>
